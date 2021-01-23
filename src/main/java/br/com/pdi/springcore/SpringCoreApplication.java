@@ -10,8 +10,8 @@ public class SpringCoreApplication {
 	public static void main(String[] args) {
 
 		ApplicationContext ctx = SpringApplication.run(SpringCoreApplication.class, args);
-		HelloWorld helloWorld = (HelloWorld) ctx.getBean("helloWorld");
-		helloWorld.sayHello();
+		InjectedByConstructorService constructorService = (InjectedByConstructorService) ctx.getBean("injectedByConstructorService");
+		constructorService.getMessage();
 	}
 
 }
