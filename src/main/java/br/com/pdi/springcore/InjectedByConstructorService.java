@@ -1,5 +1,6 @@
 package br.com.pdi.springcore;
 
+import br.com.pdi.springcore.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,7 +14,4 @@ public class InjectedByConstructorService {
         this.helloWorldService = helloWorldService;
     }
 
-    public void getMessage(){
-        helloWorldService.sayHello();
-    }
 }
