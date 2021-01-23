@@ -12,6 +12,9 @@ public class SpringCoreApplication {
 		ApplicationContext ctx = SpringApplication.run(SpringCoreApplication.class, args);
 		InjectedByConstructorService constructorService = (InjectedByConstructorService) ctx.getBean("injectedByConstructorService");
 		constructorService.getMessage();
+
+		SetterBaseService setterBaseService = (SetterBaseService) ctx.getBean("setterBaseService");
+		setterBaseService.getMessage();
 	}
 
 }
