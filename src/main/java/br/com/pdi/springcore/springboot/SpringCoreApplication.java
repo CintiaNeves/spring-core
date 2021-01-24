@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ImportResource;
 import java.util.Arrays;
 
 @SpringBootApplication
-//@ComponentScan("br.com.pdi.springcore")
 @ImportResource("classpath:/spring/spring-config.xml")
 public class SpringCoreApplication {
 

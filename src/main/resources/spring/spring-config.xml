@@ -8,6 +8,8 @@
            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
     <context:component-scan base-package="br.com.pdi.springcore"/>
+    
+    <import resource="classpath*:spring/helloworld-config.xml"/>
 
     <bean id="grettingController" class="br.com.pdi.springcore.controller.GrettingController">
         <property name="helloWorldService" ref="helloWorldServiceEnglishImpl"/>
@@ -15,24 +17,4 @@
         <property name="helloWorldServicePortuguese" ref="helloWorldServicePortugueseImpl"/>
         <property name="helloWorldServiceFrench" ref="helloWorldServiceFrenchImpl"/>
     </bean>
-
-    <bean id="helloWorldServiceFactory" class="br.com.pdi.springcore.service.impl.HelloWorldServiceFactory"/>
-
-    <bean id="helloWorldServiceSpanishImpl" factory-bean="helloWorldServiceFactory" factory-method="createHelloWorldService">
-        <constructor-arg value="fr"/>
-    </bean>
-
-    <bean id="helloWorldServicePortugueseImpl" factory-bean="helloWorldServiceFactory" factory-method="createHelloWorldService">
-        <constructor-arg value="pt"/>
-    </bean>
-
-    <bean id="helloWorldServiceFrenchImpl" factory-bean="helloWorldServiceFactory" factory-method="createHelloWorldService">
-        <constructor-arg value="fr"/>
-    </bean>
-
-    <beans profile="english">
-        <bean id="helloWorldServiceEnglishImpl" factory-bean="helloWorldServiceFactory" factory-method="createHelloWorldService" primary="true">
-            <constructor-arg value="en"/>
-        </bean>
-    </beans>
 </beans>
