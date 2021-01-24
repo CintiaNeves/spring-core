@@ -4,13 +4,13 @@ import br.com.pdi.springcore.controller.GrettingController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 
 import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
-@ComponentScan("br.com.pdi.springcore")
+//@ComponentScan("br.com.pdi.springcore")
+@ImportResource("classpath:/spring/spring-config.xml")
 public class SpringCoreApplication {
 
 	public static void main(String[] args) {

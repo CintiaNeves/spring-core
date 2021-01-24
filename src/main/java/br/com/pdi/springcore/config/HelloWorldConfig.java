@@ -1,7 +1,6 @@
 package br.com.pdi.springcore.config;
 
 import br.com.pdi.springcore.service.HelloWorldService;
-import br.com.pdi.springcore.service.impl.HelloWorldServiceBrazilianImpl;
 import br.com.pdi.springcore.service.impl.HelloWorldServiceFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +28,7 @@ public class HelloWorldConfig {
     }
 
     @Bean("portuguese")
-    public HelloWorldService helloWorldServiceBrazilianImpl(HelloWorldServiceFactory factory){
+    public HelloWorldService helloWorldServicePortuguese(HelloWorldServiceFactory factory){
         return factory.createHelloWorldService("br");
     }
 }

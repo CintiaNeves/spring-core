@@ -1,8 +1,6 @@
 package br.com.pdi.springcore.controller;
 
 import br.com.pdi.springcore.service.HelloWorldService;
-import br.com.pdi.springcore.service.impl.HelloWorldServiceBrazilianImpl;
-import br.com.pdi.springcore.service.impl.HelloWorldServiceEspanishImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -29,7 +27,7 @@ public class GrettingController {
 
     @Autowired
     @Qualifier("portuguese")
-    public void setHelloWorldServiceBrazilian(HelloWorldService helloWorldServicePortuguese) {
+    public void setHelloWorldServicePortuguese(HelloWorldService helloWorldServicePortuguese) {
         this.helloWorldServicePortuguese = helloWorldServicePortuguese;
     }
 
