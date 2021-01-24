@@ -1,4 +1,4 @@
-package br.com.pdi.springcore;
+package br.com.pdi.springcore.service.impl;
 
 import br.com.pdi.springcore.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Autowired;
