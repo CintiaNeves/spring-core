@@ -1,13 +1,19 @@
 package br.com.pdi.springcore;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ImportResource;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-@SpringBootTest
-class SpringCoreApplicationTests {
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ImportResource("classpath:/spring/spring-config.xml")
+public class SpringCoreApplicationTests {
 
 	@Test
-	void contextLoads() {
+	public void contextLoads() {
 	}
 
 }
