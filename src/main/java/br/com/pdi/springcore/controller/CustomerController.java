@@ -1,6 +1,7 @@
 package br.com.pdi.springcore.controller;
 
 import br.com.pdi.springcore.domain.Customer;
+import br.com.pdi.springcore.service.CustomerService;
 import br.com.pdi.springcore.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,17 +10,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
 @Controller
 @RequestMapping("/customer")
 public class CustomerController {
 
-    private CustomerServiceImpl customerService;
+    private CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerServiceImpl customerService){
+    public CustomerController(CustomerService customerService){
         this.customerService = customerService;
     }
 
