@@ -9,5 +9,6 @@
 * Spring framework
 * Spring MVC
 * Thymeleaf
+* HTML
 
 
