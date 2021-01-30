@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -68,11 +69,28 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer saveOrUpdate(Customer customer) {
-        return null;
+        if(customer != null){
+            if(customer.getId() == null){
+                customer.setId(getNextKey());
+            }
+            customerMap.put(customer.getId(), customer);
+            return customer;
+        }else{
+            throw new RuntimeException("Customer can't be nill");
+        }
+    }
+
+    private Long getNextKey() {
+        return Collections.max(customerMap.keySet()) + 1L;
     }
 
     @Override
     public List<Customer> listAllCustomer() {
         return new ArrayList<>(customerMap.values());
+    }
+
+    @Override
+    public Customer getCustomerById(Long id) {
+        return customerMap.get(id);
     }
 }
