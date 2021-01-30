@@ -7,5 +7,7 @@
 ### Tech
 * Java
 * Spring framework
+* Spring MVC
+* Thymeleaf
 
 

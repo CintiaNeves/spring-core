@@ -81,7 +81,12 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private Long getNextKey() {
-        return Collections.max(customerMap.keySet()) + 1L;
+        if(customerMap.isEmpty()){
+            return 1L;
+        }
+        else{
+            return Collections.max(customerMap.keySet()) + 1L;
+        }
     }
 
     @Override
@@ -92,5 +97,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getCustomerById(Long id) {
         return customerMap.get(id);
+    }
+
+    @Override
+    public void deleteProduct(Long id) {
+        customerMap.remove(id);
     }
 }
