@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="eng" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta  charset="UTF-8">
+    <title>Spring core course - List Customers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+
+    <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.4/jquery.min.js"
+            th:src="@{/webjars/jquery/2.1.4/jquery.min.js}"></script>
+</head>
+<body>
+    <div class="container">
+        <div th:if="${not #lists.isEmpty(customers)}">
+            <h2>Customer List</h2>
+            <table class="table table-striped">
+                <tr>
+                    <th>Id</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>Email</th>
+                    <th>Phone number</th>
+                    <th>Add. id 1</th>
+                    <th>Zipcode 1</th>
+                    <th>City 1</th>
+                    <th>State 1</th>
+                    <th>Add. id 2</th>
+                    <th>Zipcode 2</th>
+                    <th>City 2</th>
+                    <th>State 2</th>
+                </tr>
+                <tr th:each="customer : ${customers}">
+                    <td th:text="${customer.id}"></td>
+                    <td th:text="${customer.firstName}"></td>
+                    <td th:text="${customer.lastName}"></td>
+                    <td th:text="${customer.email}"></td>
+                    <td th:text="${customer.phoneNumber}"></td>
+                    <td th:text="${customer.addressList[0].id}"></td>
+                    <td th:text="${customer.addressList[0].zipCode}"></td>
+                    <td th:text="${customer.addressList[0].cityName}"></td>
+                    <td th:text="${customer.addressList[0].stateName}"></td>
+                    <td th:text="${customer.addressList[1].id}"></td>
+                    <td th:text="${customer.addressList[1].zipCode}"></td>
+                    <td th:text="${customer.addressList[1].cityName}"></td>
+                    <td th:text="${customer.addressList[1].stateName}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-sm-3">
+                <a href="/customer/new">New Customer</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
