@@ -10,5 +10,7 @@
 * Spring MVC
 * Thymeleaf
 * HTML
+* JUnit
+* Mockito
 
 
