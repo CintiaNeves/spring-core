@@ -1,59 +1,44 @@
 package br.com.pdi.springcore.service.impl;
 
+import br.com.pdi.springcore.domain.DomainObject;
 import br.com.pdi.springcore.domain.Product;
+import br.com.pdi.springcore.service.AbstractMapService;
 import br.com.pdi.springcore.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl extends AbstractMapService implements ProductService {
 
-    private Map<Long,Product> products;
-
-    public ProductServiceImpl() {
-        loadProducts();
+    public ProductServiceImpl(){
+        loadDomainObjects();
+    }
+    @Override
+    public List<DomainObject> listAll() {
+        return super.listAll();
     }
 
     @Override
-    public List<Product> listAllProducts() {
-        return new ArrayList<>(products.values());
+    public Product getById(Long id) {
+        return (Product) super.getById(id);
     }
 
     @Override
-    public Product getProductById(Long id) {
-        return products.get(id);
+    public Product saveOrUpdate(Product domainObject) {
+        return (Product) super.saveOrUpdate(domainObject);
     }
 
     @Override
-    public Product saveOrUpdate(Product product) {
-        if(product != null){
-            if(product.getId() == null){
-                product.setId(getNextKey());
-            }
-            products.put(product.getId(), product);
-            return product;
-        }else{
-            throw new RuntimeException("Product can't be nill");
-        }
+    public void delete(Long id) {
+        super.delete(id);
     }
 
     @Override
-    public void deleteProduct(Long id) {
-        products.remove(id);
-    }
-
-    private Long getNextKey() {
-        return Collections.max(products.keySet()) + 1L;
-    }
-
-    private void loadProducts(){
-        products = new HashMap<>();
+    protected void loadDomainObjects(){
+        domainMap = new HashMap<>();
 
         Product product1 = new Product();
         product1.setId(1L);
@@ -61,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         product1.setPrice(new BigDecimal("12.99"));
         product1.setImageUrl("http://example.com/product1");
 
-        products.put(1L, product1);
+        domainMap.put(1L, product1);
 
         Product product2 = new Product();
         product2.setId(2L);
@@ -69,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
         product2.setPrice(new BigDecimal("14.99"));
         product2.setImageUrl("http://example.com/product2");
 
-        products.put(2L, product2);
+        domainMap.put(2L, product2);
 
         Product product3 = new Product();
         product3.setId(3L);
@@ -77,7 +62,7 @@ public class ProductServiceImpl implements ProductService {
         product3.setPrice(new BigDecimal("34.99"));
         product3.setImageUrl("http://example.com/product3");
 
-        products.put(3L, product3);
+        domainMap.put(3L, product3);
 
         Product product4 = new Product();
         product4.setId(4L);
@@ -85,7 +70,7 @@ public class ProductServiceImpl implements ProductService {
         product4.setPrice(new BigDecimal("44.99"));
         product4.setImageUrl("http://example.com/product4");
 
-        products.put(4L, product4);
+        domainMap.put(4L, product4);
 
         Product product5 = new Product();
         product5.setId(5L);
@@ -93,6 +78,6 @@ public class ProductServiceImpl implements ProductService {
         product5.setPrice(new BigDecimal("25.99"));
         product5.setImageUrl("http://example.com/product5");
 
-        products.put(5L, product5);
+        domainMap.put(5L, product5);
     }
 }

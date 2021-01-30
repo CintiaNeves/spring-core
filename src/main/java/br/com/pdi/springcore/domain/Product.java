@@ -2,7 +2,7 @@ package br.com.pdi.springcore.domain;
 
 import java.math.BigDecimal;
 
-public class Product {
+public class Product implements DomainObject{
 
     private Long id;
     private String description;
