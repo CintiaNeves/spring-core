@@ -3,32 +3,52 @@ package br.com.pdi.springcore.service.impl;
 
 import br.com.pdi.springcore.domain.Address;
 import br.com.pdi.springcore.domain.Customer;
+import br.com.pdi.springcore.domain.DomainObject;
+import br.com.pdi.springcore.service.AbstractMapService;
 import br.com.pdi.springcore.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public class CustomerServiceImpl implements CustomerService {
-
+public class CustomerServiceImpl extends AbstractMapService implements CustomerService {
 
     private AddressServiceImpl addressService;
-
-    private Map<Long, Customer> customerMap;
 
     @Autowired
     public CustomerServiceImpl(AddressServiceImpl addressService){
         this.addressService = addressService;
-        loadCustomer();
+        loadDomainObjects();
     }
 
-    private void loadCustomer(){
-        customerMap = new HashMap<>();
+    @Override
+    public List<DomainObject> listAll() {
+        return super.listAll();
+    }
+
+
+    @Override
+    public Customer getById(Long id) {
+        return (Customer) super.getById(id);
+    }
+
+    @Override
+    public Customer saveOrUpdate(Customer domainObject) {
+        return (Customer) super.saveOrUpdate(domainObject);
+    }
+
+    @Override
+    public void delete(Long id) {
+        super.delete(id);
+    }
+
+
+    @Override
+    protected void loadDomainObjects(){
+        domainMap = new HashMap<>();
 
         Customer customer1 = new Customer();
         customer1.setId(1L);
@@ -39,12 +59,12 @@ public class CustomerServiceImpl implements CustomerService {
 
         List<Address> addressList1 = new ArrayList<>();
 
-        addressList1.add(addressService.getAddressById(1L));
-        addressList1.add(addressService.getAddressById(2L));
+        addressList1.add(addressService.getById(1L));
+        addressList1.add(addressService.getById(2L));
 
         customer1.setAddressList(addressList1);
 
-        customerMap.put(1L, customer1);
+        domainMap.put(1L, (DomainObject) customer1);
 
         Customer customer2 = new Customer();
         customer2.setId(2L);
@@ -55,52 +75,11 @@ public class CustomerServiceImpl implements CustomerService {
 
         List<Address> addressList2 = new ArrayList<>();
 
-        addressList2.add(addressService.getAddressById(3L));
-        addressList2.add(addressService.getAddressById(4L));
+        addressList2.add(addressService.getById(3L));
+        addressList2.add(addressService.getById(4L));
 
         customer2.setAddressList(addressList2);
 
-        customerMap.put(2L, customer2);
-    }
-
-    public CustomerServiceImpl(){
-        loadCustomer();
-    }
-
-    @Override
-    public Customer saveOrUpdate(Customer customer) {
-        if(customer != null){
-            if(customer.getId() == null){
-                customer.setId(getNextKey());
-            }
-            customerMap.put(customer.getId(), customer);
-            return customer;
-        }else{
-            throw new RuntimeException("Customer can't be nill");
-        }
-    }
-
-    private Long getNextKey() {
-        if(customerMap.isEmpty()){
-            return 1L;
-        }
-        else{
-            return Collections.max(customerMap.keySet()) + 1L;
-        }
-    }
-
-    @Override
-    public List<Customer> listAllCustomer() {
-        return new ArrayList<>(customerMap.values());
-    }
-
-    @Override
-    public Customer getCustomerById(Long id) {
-        return customerMap.get(id);
-    }
-
-    @Override
-    public void deleteProduct(Long id) {
-        customerMap.remove(id);
+        domainMap.put(2L, (DomainObject) customer2);
     }
 }

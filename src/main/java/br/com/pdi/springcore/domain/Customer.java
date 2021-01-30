@@ -2,7 +2,7 @@ package br.com.pdi.springcore.domain;
 
 import java.util.List;
 
-public class Customer {
+public class Customer implements DomainObject {
 
     private Long id;
     private String firstName;

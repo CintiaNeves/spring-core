@@ -1,7 +1,9 @@
 package br.com.pdi.springcore.controller;
 
+import br.com.pdi.springcore.domain.Customer;
 import br.com.pdi.springcore.domain.Product;
 import br.com.pdi.springcore.service.ProductService;
+import br.com.pdi.springcore.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/product")
 public class ProductController {
 
     private ProductService productService;
@@ -19,39 +22,40 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @RequestMapping("/products")
-    public String listProducts(Model model){
-        model.addAttribute("products", productService.listAllProducts());
-        return "products";
+    @RequestMapping({"/list", "/"})
+    public String listCustomers(Model model){
+        model.addAttribute("products", productService.listAll());
+        return "product/list";
     }
 
-    @RequestMapping("/product/{id}")
-    public String getProduct(@PathVariable Long id, Model model){
-        model.addAttribute("product", productService.getProductById(id));
-        return "product";
+    @RequestMapping("/show/{id}")
+    public String showCustomer(@PathVariable Long id, Model model){
+        model.addAttribute("product", productService.getById(id));
+        return "product/show";
     }
 
-    @RequestMapping("product/edit/{id}")
-    public String update(@PathVariable Long id, Model model){
-        model.addAttribute("product", productService.getProductById(id));
-        return "productForm";
+    @RequestMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model){
+        model.addAttribute("product", productService.getById(id));
+        return "product/productForm";
     }
 
-    @RequestMapping("/product/new")
-    public String newProduct(Model model){
+    @RequestMapping("/new")
+    public String newCustomer(Model model){
         model.addAttribute("product", new Product());
-        return "productForm";
+        return "product/productForm";
     }
 
-    @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public String saveOrUpdateProduct(Product product){
-        Product savedProduct = productService.saveOrUpdate(product);
-        return "redirect:/product/" + savedProduct.getId();
+
+    @RequestMapping(method = RequestMethod.POST)
+    public String saveOrUpdate(Product product){
+        Product productSaved = productService.saveOrUpdate(product);
+        return "redirect:/product/show/" + productSaved.getId();
     }
 
-    @RequestMapping("product/delete/{id}")
+    @RequestMapping("/delete/{id}")
     public String delete(@PathVariable Long id){
-        productService.deleteProduct(id);
-        return "redirect:/products";
+        productService.delete(id);
+        return "redirect:/product/list";
     }
 }

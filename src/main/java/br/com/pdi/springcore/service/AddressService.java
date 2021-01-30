@@ -4,9 +4,6 @@ import br.com.pdi.springcore.domain.Address;
 import org.springframework.stereotype.Service;
 
 @Service
-public interface AddressService {
+public interface AddressService extends CRUDService<Address> {
 
-    Address saveOrUpdateAddress(Address address);
-
-    Address getAddressById(Long id);
 }

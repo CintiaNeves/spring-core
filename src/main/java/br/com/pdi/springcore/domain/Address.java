@@ -1,6 +1,6 @@
 package br.com.pdi.springcore.domain;
 
-public class Address {
+public class Address implements DomainObject{
 
     private Long id;
     private String cityName;
