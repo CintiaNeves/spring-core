@@ -42,4 +42,10 @@ public class CustomerController {
         model.addAttribute("customer", customerService.getCustomerById(id));
         return "customer";
     }
+
+    @RequestMapping("customer/edit/{id}")
+    public String update(@PathVariable Long id, Model model){
+        model.addAttribute("customer", customerService.getCustomerById(id));
+        return "customerForm";
+    }
 }
