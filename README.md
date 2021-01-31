@@ -6,11 +6,13 @@
 
 ### Tech
 * Java
-* Spring framework
+* Spring boot
+* Spring data JPA
 * Spring MVC
 * Thymeleaf
 * HTML
 * JUnit
 * Mockito
+
 
 

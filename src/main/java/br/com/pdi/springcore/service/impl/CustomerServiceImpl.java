@@ -62,8 +62,6 @@ public class CustomerServiceImpl extends AbstractMapService implements CustomerS
         addressList1.add(addressService.getById(1L));
         addressList1.add(addressService.getById(2L));
 
-        customer1.setAddressList(addressList1);
-
         domainMap.put(1L, (DomainObject) customer1);
 
         Customer customer2 = new Customer();
@@ -77,8 +75,6 @@ public class CustomerServiceImpl extends AbstractMapService implements CustomerS
 
         addressList2.add(addressService.getById(3L));
         addressList2.add(addressService.getById(4L));
-
-        customer2.setAddressList(addressList2);
 
         domainMap.put(2L, (DomainObject) customer2);
     }

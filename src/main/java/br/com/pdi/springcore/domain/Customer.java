@@ -1,15 +1,31 @@
 package br.com.pdi.springcore.domain;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Version;
 import java.util.List;
 
+@Entity
 public class Customer implements DomainObject {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Version
+    private Integer version;
+
     private String firstName;
+
     private String lastName;
+
     private String email;
+
     private String phoneNumber;
-    private List<Address> addressList;
 
     public Long getId() {
         return id;
@@ -17,6 +33,14 @@ public class Customer implements DomainObject {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
     }
 
     public String getFirstName() {
@@ -51,11 +75,4 @@ public class Customer implements DomainObject {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Address> getAddressList() {
-        return addressList;
-    }
-
-    public void setAddressList(List<Address> addressList) {
-        this.addressList = addressList;
-    }
 }
