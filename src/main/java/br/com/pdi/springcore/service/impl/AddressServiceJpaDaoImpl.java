@@ -1,7 +1,7 @@
 package br.com.pdi.springcore.service.impl;
 
-import br.com.pdi.springcore.domain.Product;
-import br.com.pdi.springcore.service.ProductService;
+import br.com.pdi.springcore.domain.Address;
+import br.com.pdi.springcore.service.AddressService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class ProductServiceJpaDaoImpl implements ProductService {
+public class AddressServiceJpaDaoImpl implements AddressService {
 
     private EntityManagerFactory entityManagerFactory;
 
@@ -22,32 +22,33 @@ public class ProductServiceJpaDaoImpl implements ProductService {
     }
 
     @Override
-    public List<Product> listAll() {
+    public List<Address> listAll() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.createQuery("from Product", Product.class).getResultList();
+        return entityManager.createQuery("from Address", Address.class).getResultList();
     }
 
     @Override
-    public Product getById(Long id) {
+    public Address getById(Long id) {
        EntityManager entityManager = entityManagerFactory.createEntityManager();
-       return entityManager.find(Product.class, id);
+       return entityManager.find(Address.class, id);
     }
 
+
     @Override
-    public Product saveOrUpdate(Product product) {
+    public Address saveOrUpdate(Address address) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Product savedProduct = entityManager.merge(product);
+        Address savedAddress = entityManager.merge(address);
         entityManager.getTransaction().commit();
 
-        return savedProduct;
+        return savedAddress;
     }
 
     @Override
     public void delete(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Product.class, id));
+        entityManager.remove(entityManager.find(Address.class, id));
         entityManager.getTransaction().commit();
     }
 }

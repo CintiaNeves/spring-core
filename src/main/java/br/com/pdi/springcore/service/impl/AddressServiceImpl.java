@@ -4,12 +4,14 @@ import br.com.pdi.springcore.domain.Address;
 import br.com.pdi.springcore.domain.DomainObject;
 import br.com.pdi.springcore.service.AbstractMapService;
 import br.com.pdi.springcore.service.AddressService;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 
 @Service
+@Profile("map")
 public class AddressServiceImpl extends AbstractMapService implements AddressService {
 
     public AddressServiceImpl(){
