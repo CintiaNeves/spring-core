@@ -1,6 +1,10 @@
 package br.com.pdi.springcore.bootstrap;
 
+import br.com.pdi.springcore.domain.Address;
+import br.com.pdi.springcore.domain.Customer;
 import br.com.pdi.springcore.domain.Product;
+import br.com.pdi.springcore.service.AddressService;
+import br.com.pdi.springcore.service.CustomerService;
 import br.com.pdi.springcore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
@@ -8,24 +12,38 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private ProductService productService;
+    private AddressService addressService;
+    private CustomerService customerService;
 
     @Autowired
     public void setProductService(ProductService productService) {
         this.productService = productService;
     }
 
+    @Autowired
+    public void setAddressService(AddressService addressService) {
+        this.addressService = addressService;
+    }
+
+    @Autowired
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         loadProducts();
+        loadCustomers();
     }
 
     private void loadProducts(){
-
         Product product1 = new Product();
         product1.setId(1L);
         product1.setDescription("Product 1");
@@ -66,5 +84,25 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
         productService.saveOrUpdate(product5);
 
+    }
+
+    private void loadCustomers(){
+        Customer customer1 = new Customer();
+        customer1.setId(1L);
+        customer1.setFirstName("Maria");
+        customer1.setLastName("Pedroso");
+        customer1.setEmail("mp@email.com");
+        customer1.setPhoneNumber("9999-9999");
+
+        customerService.saveOrUpdate(customer1);
+
+        Customer customer2 = new Customer();
+        customer2.setId(2L);
+        customer2.setFirstName("Cintia");
+        customer2.setLastName("Neves");
+        customer2.setEmail("cn@email.com");
+        customer2.setPhoneNumber("0000-0000");
+
+        customerService.saveOrUpdate(customer2);
     }
 }

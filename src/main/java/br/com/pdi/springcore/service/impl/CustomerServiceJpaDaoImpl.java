@@ -1,7 +1,7 @@
 package br.com.pdi.springcore.service.impl;
 
-import br.com.pdi.springcore.domain.Product;
-import br.com.pdi.springcore.service.ProductService;
+import br.com.pdi.springcore.domain.Customer;
+import br.com.pdi.springcore.service.CustomerService;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class ProductServiceJpaDaoImpl implements ProductService {
+public class CustomerServiceJpaDaoImpl implements CustomerService {
 
     private EntityManagerFactory entityManagerFactory;
 
@@ -22,32 +22,33 @@ public class ProductServiceJpaDaoImpl implements ProductService {
     }
 
     @Override
-    public List<Product> listAll() {
+    public List<Customer> listAll() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.createQuery("from Product", Product.class).getResultList();
+        return entityManager.createQuery("from Customer", Customer.class).getResultList();
     }
 
     @Override
-    public Product getById(Long id) {
+    public Customer getById(Long id) {
        EntityManager entityManager = entityManagerFactory.createEntityManager();
-       return entityManager.find(Product.class, id);
+       return entityManager.find(Customer.class, id);
     }
 
+
     @Override
-    public Product saveOrUpdate(Product product) {
+    public Customer saveOrUpdate(Customer customer) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Product savedProduct = entityManager.merge(product);
+        Customer savedCustomer = entityManager.merge(customer);
         entityManager.getTransaction().commit();
 
-        return savedProduct;
+        return savedCustomer;
     }
 
     @Override
     public void delete(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Product.class, id));
+        entityManager.remove(entityManager.find(Customer.class, id));
         entityManager.getTransaction().commit();
     }
 }
