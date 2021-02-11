@@ -1,6 +1,7 @@
 package br.com.pdi.springcore.controller;
 
 import br.com.pdi.springcore.domain.Customer;
+import br.com.pdi.springcore.domain.User;
 import br.com.pdi.springcore.service.CustomerService;
 import br.com.pdi.springcore.service.impl.CustomerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;

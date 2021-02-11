@@ -1,7 +1,9 @@
 package br.com.pdi.springcore.service.impl;
 
 import br.com.pdi.springcore.domain.Customer;
+import br.com.pdi.springcore.security.EncryptionService;
 import br.com.pdi.springcore.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +17,12 @@ import java.util.List;
 public class CustomerServiceJpaDaoImpl implements CustomerService {
 
     private EntityManagerFactory entityManagerFactory;
+    private EncryptionService encryptionService;
+
+    @Autowired
+    public void setEncryptionService(EncryptionService encryptionService) {
+        this.encryptionService = encryptionService;
+    }
 
     @PersistenceUnit
     public void setEntityManagerFactory(EntityManagerFactory entityManagerFactory) {
@@ -38,6 +46,12 @@ public class CustomerServiceJpaDaoImpl implements CustomerService {
     public Customer saveOrUpdate(Customer customer) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
+
+        if(customer.getUser().getPassword() != null){
+            customer.getUser().setEncryptedPassword(
+                    encryptionService.encryptString(customer.getUser().getPassword()));
+        }
+
         Customer savedCustomer = entityManager.merge(customer);
         entityManager.getTransaction().commit();
 

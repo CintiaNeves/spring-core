@@ -3,6 +3,7 @@ package services;
 import br.com.pdi.springcore.config.JpaIntegrationConfig;
 import br.com.pdi.springcore.domain.Customer;
 import br.com.pdi.springcore.domain.Product;
+import br.com.pdi.springcore.domain.User;
 import br.com.pdi.springcore.service.CustomerService;
 import br.com.pdi.springcore.service.ProductService;
 import org.junit.Test;
@@ -33,5 +34,17 @@ public class CustomerServiceJpaDaoImplTest {
         List<Customer> customers = (List<Customer>) customerService.listAll();
         assert customers.size() == 2;
 
+    }
+
+    @Test
+    public void testSaveWithUser(){
+        Customer customer = new Customer();
+        User user = new User();
+        customer.setUser(user);
+
+        Customer savedCustomer = customerService.saveOrUpdate(customer);
+
+        assert savedCustomer.getId() != null;
+        assert savedCustomer.getUser().getId() != null;
     }
 }
