@@ -21,6 +21,8 @@
                     <th>Last name</th>
                     <th>Email</th>
                     <th>Phone number</th>
+                    <th>Username</th>
+                    <th>Password</th>
 <!--                    <th>Add. id 1</th>-->
 <!--                    <th>Zipcode 1</th>-->
 <!--                    <th>City 1</th>-->
@@ -39,6 +41,8 @@
                     <td th:text="${customer.lastName}"></td>
                     <td th:text="${customer.email}"></td>
                     <td th:text="${customer.phoneNumber}"></td>
+                    <td th:text="${customer.user.username}"></td>
+                    <td th:text="${customer.user.password}"></td>
 <!--                    <td th:text="${customer.addressList[0].id}"></td>-->
 <!--                    <td th:text="${customer.addressList[0].zipCode}"></td>-->
 <!--                    <td th:text="${customer.addressList[0].cityName}"></td>-->

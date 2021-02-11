@@ -3,6 +3,7 @@ package br.com.pdi.springcore.bootstrap;
 import br.com.pdi.springcore.domain.Address;
 import br.com.pdi.springcore.domain.Customer;
 import br.com.pdi.springcore.domain.Product;
+import br.com.pdi.springcore.domain.User;
 import br.com.pdi.springcore.service.AddressService;
 import br.com.pdi.springcore.service.CustomerService;
 import br.com.pdi.springcore.service.ProductService;
@@ -88,20 +89,28 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
 
     private void loadCustomers(){
         Customer customer1 = new Customer();
+        User user1 = new User();
+        user1.setUsername("myUsername1");
+        user1.setPassword("myPassword1");
         customer1.setId(1L);
         customer1.setFirstName("Maria");
         customer1.setLastName("Pedroso");
         customer1.setEmail("mp@email.com");
         customer1.setPhoneNumber("9999-9999");
+        customer1.setUser(user1);
 
         customerService.saveOrUpdate(customer1);
 
         Customer customer2 = new Customer();
+        User user2 = new User();
+        user2.setUsername("myUsername2");
+        user2.setPassword("myPassword2");
         customer2.setId(2L);
         customer2.setFirstName("Cintia");
         customer2.setLastName("Neves");
         customer2.setEmail("cn@email.com");
         customer2.setPhoneNumber("0000-0000");
+        customer2.setUser(user2);
 
         customerService.saveOrUpdate(customer2);
     }
