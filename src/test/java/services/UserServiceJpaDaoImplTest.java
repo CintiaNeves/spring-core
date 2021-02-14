@@ -1,8 +1,12 @@
 package services;
 
 import br.com.pdi.springcore.config.JpaIntegrationConfig;
+import br.com.pdi.springcore.domain.Cart;
+import br.com.pdi.springcore.domain.CartDetail;
 import br.com.pdi.springcore.domain.Customer;
+import br.com.pdi.springcore.domain.Product;
 import br.com.pdi.springcore.domain.User;
+import br.com.pdi.springcore.service.ProductService;
 import br.com.pdi.springcore.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -12,6 +16,8 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 
+import java.util.List;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ActiveProfiles("jpadao")
@@ -19,10 +25,16 @@ import org.springframework.test.context.web.WebAppConfiguration;
 public class UserServiceJpaDaoImplTest {
 
     private UserService userService;
+    private ProductService productService;
 
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setProductService(ProductService productService) {
+        this.productService = productService;
     }
 
     @Test
@@ -63,6 +75,93 @@ public class UserServiceJpaDaoImplTest {
         assert savedUser.getCustomer() != null;
         assert savedUser.getCustomer().getId() != null;
 
+    }
+
+    @Test
+    public void testAddCartToUser() throws Exception {
+        User user = new User();
+
+        user.setUsername("someusername");
+        user.setPassword("myPassword");
+
+        user.setCart(new Cart());
+
+        User savedUser = userService.saveOrUpdate(user);
+
+        assert savedUser.getId() != null;
+        assert savedUser.getVersion() != null;
+        assert savedUser.getCart() != null;
+        assert savedUser.getCart().getId() != null;
+    }
+
+    @Test
+    public void testAddCartToUserWithCartDetails() throws Exception {
+
+        for(int i = 0; i < 2; i++){
+            Product product = new Product();
+            productService.saveOrUpdate(product);
+        }
+
+        User user = new User();
+
+        user.setUsername("someusername");
+        user.setPassword("myPassword");
+
+        user.setCart(new Cart());
+
+        List<Product> storedProducts = (List<Product>) productService.listAll();
+
+        CartDetail cartItemOne = new CartDetail();
+        cartItemOne.setProduct(storedProducts.get(0));
+        user.getCart().addCartDetail(cartItemOne);
+
+        CartDetail cartItemTwo = new CartDetail();
+        cartItemTwo.setProduct(storedProducts.get(1));
+        user.getCart().addCartDetail(cartItemTwo);
+
+        User savedUser = userService.saveOrUpdate(user);
+
+        assert savedUser.getId() != null;
+        assert savedUser.getVersion() != null;
+        assert savedUser.getCart() != null;
+        assert savedUser.getCart().getId() != null;
+        assert savedUser.getCart().getCartDetails().size() == 2;
+    }
+
+    @Test
+    public void testAddAndRemoveCartToUserWithCartDetails() throws Exception {
+
+        for(int i = 0; i < 2; i++){
+            Product product = new Product();
+            productService.saveOrUpdate(product);
+        }
+
+        User user = new User();
+
+        user.setUsername("someusername");
+        user.setPassword("myPassword");
+
+        user.setCart(new Cart());
+
+        List<Product> storedProducts = (List<Product>) productService.listAll();
+
+        CartDetail cartItemOne = new CartDetail();
+        cartItemOne.setProduct(storedProducts.get(0));
+        user.getCart().addCartDetail(cartItemOne);
+
+        CartDetail cartItemTwo = new CartDetail();
+        cartItemTwo.setProduct(storedProducts.get(1));
+        user.getCart().addCartDetail(cartItemTwo);
+
+        User savedUser = userService.saveOrUpdate(user);
+
+        assert savedUser.getCart().getCartDetails().size() == 2;
+
+        savedUser.getCart().removeCartDetail(savedUser.getCart().getCartDetails().get(0));
+
+        userService.saveOrUpdate(savedUser);
+
+        assert savedUser.getCart().getCartDetails().size() == 1;
     }
 
 }
