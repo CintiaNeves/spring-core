@@ -3,7 +3,6 @@ package br.com.pdi.springcore.bootstrap;
 import br.com.pdi.springcore.domain.Customer;
 import br.com.pdi.springcore.domain.Product;
 import br.com.pdi.springcore.domain.User;
-import br.com.pdi.springcore.service.AddressService;
 import br.com.pdi.springcore.service.CustomerService;
 import br.com.pdi.springcore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,17 +16,11 @@ import java.math.BigDecimal;
 public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private ProductService productService;
-    private AddressService addressService;
     private CustomerService customerService;
 
     @Autowired
     public void setProductService(ProductService productService) {
         this.productService = productService;
-    }
-
-    @Autowired
-    public void setAddressService(AddressService addressService) {
-        this.addressService = addressService;
     }
 
     @Autowired
