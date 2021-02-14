@@ -1,11 +1,9 @@
-package services;
+package br.com.pdi.springcore.services;
 
 import br.com.pdi.springcore.config.JpaIntegrationConfig;
 import br.com.pdi.springcore.domain.Customer;
-import br.com.pdi.springcore.domain.Product;
 import br.com.pdi.springcore.domain.User;
 import br.com.pdi.springcore.service.CustomerService;
-import br.com.pdi.springcore.service.ProductService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

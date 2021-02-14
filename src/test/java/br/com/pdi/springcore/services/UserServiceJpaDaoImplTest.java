@@ -1,4 +1,4 @@
-package services;
+package br.com.pdi.springcore.services;
 
 import br.com.pdi.springcore.config.JpaIntegrationConfig;
 import br.com.pdi.springcore.domain.Cart;

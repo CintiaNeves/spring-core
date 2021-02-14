@@ -8,7 +8,7 @@ import javax.persistence.Version;
 import java.math.BigDecimal;
 
 @Entity
-public class Product implements DomainObject{
+public class Product extends AbstractDomainClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

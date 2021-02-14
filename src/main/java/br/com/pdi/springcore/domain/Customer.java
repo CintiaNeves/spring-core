@@ -11,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 @Entity
-public class Customer implements DomainObject {
+public class Customer extends AbstractDomainClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

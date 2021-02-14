@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 @Entity
-public class CartDetail {
+public class CartDetail extends AbstractDomainClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

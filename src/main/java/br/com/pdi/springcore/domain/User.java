@@ -1,19 +1,26 @@
 package br.com.pdi.springcore.domain;
 
+import br.com.pdi.springcore.domain.security.Role;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.CascadeType.*;
 import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
-public class User implements DomainObject{
+public class User extends AbstractDomainClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -34,6 +41,11 @@ public class User implements DomainObject{
 
     @OneToOne(cascade = ALL, orphanRemoval = true)
     private Cart cart;
+
+
+    @ManyToMany
+    @JoinTable
+    private List<Role> roles = new ArrayList<>();
 
     @Override
     public Long getId() {
@@ -100,5 +112,28 @@ public class User implements DomainObject{
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+
+    public void addRole(Role role){
+        if(!this.roles.contains(role)){
+            this.roles.add(role);
+        }
+
+        if(!role.getUsers().contains(this)){
+            role.getUsers().add(this);
+        }
+    }
+
+    public void removeRole(Role role){
+        this.roles.remove(role);
+        role.getUsers().remove(this);
     }
 }
