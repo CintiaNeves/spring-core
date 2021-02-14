@@ -1,6 +1,5 @@
 package br.com.pdi.springcore.bootstrap;
 
-import br.com.pdi.springcore.domain.Address;
 import br.com.pdi.springcore.domain.Customer;
 import br.com.pdi.springcore.domain.Product;
 import br.com.pdi.springcore.domain.User;
@@ -13,8 +12,6 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 @Component
 public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedEvent> {

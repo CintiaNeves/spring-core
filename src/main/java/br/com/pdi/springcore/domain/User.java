@@ -1,11 +1,16 @@
 package br.com.pdi.springcore.domain;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Transient;
 import javax.persistence.Version;
+
+import static javax.persistence.CascadeType.*;
+import static javax.persistence.CascadeType.PERSIST;
 
 @Entity
 public class User implements DomainObject{
@@ -23,6 +28,9 @@ public class User implements DomainObject{
     private String encryptedPassword;
     private String username;
     private Boolean enable = true;
+
+    @OneToOne(cascade = {MERGE, PERSIST})
+    private Customer customer;
 
     @Override
     public Long getId() {
@@ -72,5 +80,14 @@ public class User implements DomainObject{
 
     public void setEncryptedPassword(String encryptedPassword) {
         this.encryptedPassword = encryptedPassword;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+        customer.setUser(this);
     }
 }
