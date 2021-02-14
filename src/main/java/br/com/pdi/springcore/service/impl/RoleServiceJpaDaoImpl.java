@@ -1,7 +1,11 @@
 package br.com.pdi.springcore.service.impl;
 
-import br.com.pdi.springcore.domain.Address;
-import br.com.pdi.springcore.service.AddressService;
+import br.com.pdi.springcore.domain.User;
+import br.com.pdi.springcore.domain.security.Role;
+import br.com.pdi.springcore.security.EncryptionService;
+import br.com.pdi.springcore.service.RoleService;
+import br.com.pdi.springcore.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +16,7 @@ import java.util.List;
 
 @Service
 @Profile("jpadao")
-public class AddressServiceJpaDaoImpl implements AddressService {
+public class RoleServiceJpaDaoImpl implements RoleService {
 
     private EntityManagerFactory entityManagerFactory;
 
@@ -22,33 +26,34 @@ public class AddressServiceJpaDaoImpl implements AddressService {
     }
 
     @Override
-    public List<Address> listAll() {
+    public List<Role> listAll() {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
-        return entityManager.createQuery("from Address", Address.class).getResultList();
+        return entityManager.createQuery("from Role", Role.class).getResultList();
     }
 
     @Override
-    public Address getById(Long id) {
+    public Role getById(Long id) {
        EntityManager entityManager = entityManagerFactory.createEntityManager();
-       return entityManager.find(Address.class, id);
+       return entityManager.find(Role.class, id);
     }
 
 
     @Override
-    public Address saveOrUpdate(Address address) {
+    public Role saveOrUpdate(Role role) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        Address savedAddress = entityManager.merge(address);
+
+        Role savedRole = entityManager.merge(role);
         entityManager.getTransaction().commit();
 
-        return savedAddress;
+        return savedRole;
     }
 
     @Override
     public void delete(Long id) {
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         entityManager.getTransaction().begin();
-        entityManager.remove(entityManager.find(Address.class, id));
+        entityManager.remove(entityManager.find(Role.class, id));
         entityManager.getTransaction().commit();
     }
 }

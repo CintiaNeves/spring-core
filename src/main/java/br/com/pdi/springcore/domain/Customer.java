@@ -1,6 +1,8 @@
 package br.com.pdi.springcore.domain;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Embeddable;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +11,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Version;
 
 @Entity
-public class Customer implements DomainObject {
+public class Customer extends AbstractDomainClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,8 +28,11 @@ public class Customer implements DomainObject {
 
     private String phoneNumber;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
     private User user;
+
+    @Embedded
+    private Address billingAddress;
 
     public Long getId() {
         return id;
@@ -83,5 +88,13 @@ public class Customer implements DomainObject {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public Address getBillingAddress() {
+        return billingAddress;
+    }
+
+    public void setBillingAddress(Address billingAddress) {
+        this.billingAddress = billingAddress;
     }
 }

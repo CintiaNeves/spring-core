@@ -1,27 +1,28 @@
 package br.com.pdi.springcore.bootstrap;
 
-import br.com.pdi.springcore.domain.Address;
 import br.com.pdi.springcore.domain.Customer;
 import br.com.pdi.springcore.domain.Product;
 import br.com.pdi.springcore.domain.User;
-import br.com.pdi.springcore.service.AddressService;
+import br.com.pdi.springcore.domain.security.Role;
 import br.com.pdi.springcore.service.CustomerService;
 import br.com.pdi.springcore.service.ProductService;
+import br.com.pdi.springcore.service.RoleService;
+import br.com.pdi.springcore.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private ProductService productService;
-    private AddressService addressService;
     private CustomerService customerService;
+    private UserService userService;
+    private RoleService roleService;
 
     @Autowired
     public void setProductService(ProductService productService) {
@@ -29,19 +30,47 @@ public class SpringJpaBootstrap implements ApplicationListener<ContextRefreshedE
     }
 
     @Autowired
-    public void setAddressService(AddressService addressService) {
-        this.addressService = addressService;
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
+    }
+
+
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
     }
 
     @Autowired
-    public void setCustomerService(CustomerService customerService) {
-        this.customerService = customerService;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
         loadProducts();
         loadCustomers();
+        loadRoles();
+        assignUsersToDefaultRole();
+    }
+
+    private void assignUsersToDefaultRole() {
+        List<Role> roles = (List<Role>) roleService.listAll();
+        List<User> users = (List<User>) userService.listAll();
+
+        roles.forEach(role ->{
+            if(role.getRole().equalsIgnoreCase("CUSTOMER")){
+                users.forEach(user -> {
+                    user.addRole(role);
+                    userService.saveOrUpdate(user);
+                });
+            }
+        });
+    }
+
+    private void loadRoles() {
+        Role role = new Role();
+        role.setRole("CUSTOMER");
+        roleService.saveOrUpdate(role);
     }
 
     private void loadProducts(){

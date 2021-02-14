@@ -4,11 +4,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Version;
-import java.math.BigDecimal;
 
 @Entity
-public class Product extends AbstractDomainClass {
+public class CartDetail extends AbstractDomainClass {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,11 +18,11 @@ public class Product extends AbstractDomainClass {
     @Version
     private Integer version;
 
-    private String description;
+    @ManyToOne
+    private Cart cart;
 
-    private BigDecimal price;
-
-    private String imageUrl;
+    @OneToOne
+    private Product product;
 
     public Long getId() {
         return id;
@@ -39,27 +40,19 @@ public class Product extends AbstractDomainClass {
         this.version = version;
     }
 
-    public String getDescription() {
-        return description;
+    public Cart getCart() {
+        return cart;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCart(Cart cart) {
+        this.cart = cart;
     }
 
-    public BigDecimal getPrice() {
-        return price;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
